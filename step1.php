@@ -1,9 +1,18 @@
-<p>コメントしてください。</p>
-  <form method="POST" action="sql.php">
-  <input name="name" /> 
-  <input name="comment" />
-  <input type="submit" value="送信" />
-</form>
+<link rel="stylesheet" href="style.css">
+<p><strong>掲示板</strong></p>
+  <form method="POST" action="step1.php">
+    <div>
+      <label>名前: </label>
+      <input name="name" />
+    </div>
+    <div>
+    <label>コメント: </label>
+      <input name="comment" />
+    </div>
+    <div class="button">
+      <button type="submit">送信</button>
+    </div>
+  </form>
 
 <?php
 require '../password.php';
@@ -30,7 +39,14 @@ elseif ((empty($_POST["name"]))) {
   //プリペアドステートメントを作成
   $stmt = $mysqli->prepare("INSERT INTO datas (name, comment) VALUES (?, ?)");
   //?の位置に値を割り当てる
-  $stmt->bind_param('ss', $_POST["name"], $_POST["comment"]);
+  $postname = $_POST["name"];
+  
+  //scriptタグを削除
+  $postcomment = strip_tags($_POST["comment"]);
+  //改行コードを<br>に置換
+  $postcommentbr = nl2br($postcomment);
+
+  $stmt->bind_param('ss', $postname, $postcommentbr);
   //ステートメント実行
   $stmt->execute();
   //echo $_SERVER['SERVER_NAME'];
