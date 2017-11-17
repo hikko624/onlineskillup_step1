@@ -39,7 +39,7 @@ elseif ((empty($_POST["name"]))) {
   //プリペアドステートメントを作成
   $stmt = $mysqli->prepare("INSERT INTO datas (name, comment) VALUES (?, ?)");
   //?の位置に値を割り当てる
-  $postname = $_POST["name"];
+  $postname = strip_tags($_POST["name"]);
   
   //scriptタグを削除
   $postcomment = strip_tags($_POST["comment"]);
