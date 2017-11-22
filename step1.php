@@ -17,6 +17,7 @@
 <?php
 require '../password.php';
 //mysqliクラスのオブジェクトを作成
+//echo $_SERVER['SERVER_NAME'];
 if($_SERVER['SERVER_NAME'] == "localhost") {
   $mysqli = new mysqli($db['host'], $db['user'], '', $db['dbname']);
 } else {
@@ -49,7 +50,7 @@ elseif ((empty($_POST["name"]))) {
   $stmt->bind_param('ss', $postname, $postcommentbr);
   //ステートメント実行
   $stmt->execute();
-  //echo $_SERVER['SERVER_NAME'];
+  
 }
 $result = $mysqli->query("SELECT * FROM datas ORDER BY created DESC");
 if($result){
